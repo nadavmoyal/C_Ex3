@@ -1,39 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-void GetClean(char str[]) {
-    int i=0,TotalValue=0,StrSize =0;
-    char c ='0';
-    StrSize = strlen(str);
-    int j= StrSize-1;
-    while(i<=StrSize){
-        c=str[i];
-        if(('a'<=c)||(c<='z')||('A'<=c)||(c<='Z')){ 
-         break;
-        }  
-        else{
-            i++;
-        }
-    }
-      while(j>=0){
-        c=str[j];
-        if(('a'<=c)||(c<='z')||('A'<=c)||(c<='Z')){ 
-         break;
-        }  
-        else{
-            j--;
-        }
-    }
-    char CleanStr [j-i+1];
-    memcpy(CleanStr,&str[i],j-i+1);  
-    CleanStr[j-i+1]='\0';   
-    int p=0;
-    while(p<=j-i+1){
-      str[p] = CleanStr[p];  
-      p++;
-    }
-}
-
 int GetGematria(char str[]) {
     int i=0,TotalValue=0,StrSize =0;
     char c ='0';
@@ -107,6 +74,7 @@ int main(){
     i=0;
     c='0';
     fgets(TextTemp,1024, stdin);
+    
     TextLen = strlen (TextTemp);
     while(i<=TextLen){
         c=TextTemp[i];
@@ -126,18 +94,32 @@ int main(){
      TextLen=strlen (Text);
      printf(" is      %d\n" , TextLen);
      while(h<TextLen){
-       int size= (h-l);
-        printf("\n %d ",(size));
-        memcpy(Tmp,&Text[l],size+1);
-        Tmp[size+1]='\0';
+        c=Text[l];
+        printf("c is c= %c",c);
+        while((l<TextLen)){
+           if(('a'>c)||(c>'z')){
+              if (('A'>c)||(c>'Z')){
+                l++;
+                c=Text[l]; 
+                printf("%d",l);
+            }
+           else break;
+         }
+         else break;
+        }
+            if(l>h){
+                h=l;
+            }
+        int size= (h-l+1);
+        memcpy(Tmp,&Text[l],size);
+        Tmp[size]='\0';
         printf("\n %s \n",Tmp);
-        GetClean(Tmp);
-        printf("the clean is =%s" , Tmp);
-        while(Text[l]!=Tmp[0]){l++;}
+        // Tmp=GetClean(Tmp);
+        // printf("the clean is =%s" , Tmp);
         TmpValue = GetGematria(Tmp);
         printf("\nTmp is %s  and the value is %d\n",Tmp,TmpValue);
                     if(TmpValue==WordValue){
-                 printf("\n the string is :%s\n",Tmp);
+              //   printf("\n the string is :%s\n",Tmp);
                  AppendChars(Ans,Tmp);
                     l++;
                     h++;
@@ -149,15 +131,18 @@ int main(){
              if(l<h){
              l++;
              }
-             else if(l==h){
+             else {if(l==h){
              l++;
              h++;  
+             }
              }
         }
         }
        
      }
-     // printf("Ans is     %s ",Ans);
-
+       int AnsLen=strlen (Ans);
+       Ans[AnsLen-1]='\0';
+      printf("Ans is:%s ",Ans);
+      
     return 0;
 }
