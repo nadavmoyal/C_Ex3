@@ -57,16 +57,39 @@ int main(){
     char WordTemp[30];
     fgets(WordTemp,30, stdin);  
     WordLen = strlen (WordTemp);
-    while(i<=WordLen){
+    while(i<WordLen){
         c=WordTemp[i];
         if((c==' ')||(c=='\n')||(c=='\t')){
             break;
         }
         i=i+1;
     }
-     char Word [i];
-     strncpy(Word,&WordTemp[0],i);
-     Word [i] ='\0';
+     int ind=0;
+     int index=i; 
+       while((ind<i)){
+            c=WordTemp[ind];
+           if(('a'>c)||(c>'z')){
+              if (('A'>c)||(c>'Z')){
+                ind++;
+            }
+           else break;
+         }
+         else break;
+        }
+          while((index>0)){
+            c=WordTemp[index];
+           if(('a'>c)||(c>'z')){
+              if (('A'>c)||(c>'Z')){
+                index--;
+            }
+           else break;
+         }
+         else break;
+        }
+
+     char Word [index-ind+1];
+     strncpy(Word,&WordTemp[ind],index-ind+1);
+     Word [index-ind+1] ='\0';
      printf("%s\n" , Word);
      int WordValue = GetGematria(Word);
      printf("is      %d\n" , WordValue);
