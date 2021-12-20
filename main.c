@@ -32,7 +32,7 @@ char* GetAtbash(char Tmp []){
     char c;
     while(i<TmpLen){
         c=Tmp[i];
-        if(('A'<=c)&&(c<='Z')||('a'<=c)&&(c<='z')){
+        if((('A'<=c)&&(c<='Z'))||(('a'<=c)&&(c<='z'))){
             if(('a'<=c)&&(c<='z')) {  // Lower case
                 c=c-'a';   //maybe we need to use int and after that to do casting
                 c='z'-c;
@@ -81,7 +81,6 @@ int main(){
     int i= 0;
     int WordLen=0;
     int TextLen=0;
-    char TextTemp[1024]; // maybe 1024 ..
     char c='0';
     char WordTemp[30];
     fgets(WordTemp,30, stdin);
@@ -124,10 +123,7 @@ int main(){
     char* Atbash  = GetAtbash(Word);
     //    printf("%s\n" ,Atbash);
      int AtLen= strlen(Atbash);  
-       int RevLen =5;
-   
-
-   char rev1[RevLen];
+    
 
     int WordValue = GetGematria(Word);
     i=0;
@@ -217,12 +213,12 @@ int main(){
  else {printf("Gematria Sequences: \n");}
 ////////////////Atbash check//////////////////////
     checker=0;
-    char AtTmp [1];
+    char AtTmp [1]={0};
     l=0,h=0;
     int t=0;
     int Value=0;
     int AtValue=GetGematria(Atbash); // need to check
-    char AtAns[1000];
+    char AtAns[1000]={0};
     TextLen=strlen (Text);
 
     int flag =1;
@@ -262,7 +258,7 @@ int main(){
             flag=1;
             while(r<length){
                 char cc=AtTmp[r];
-                if(('A'<=cc)&&(cc<='Z')||('a'<=cc)&&(cc<='z')){
+                if((('A'<=cc)&&(cc<='Z'))||(('a'<=cc)&&(cc<='z'))){
                     if(Atbash[t]!=cc){
                         flag=0;
                         break;
@@ -288,7 +284,7 @@ int main(){
                 while(r<length){
      
                     char cc=AtTmp[r];
-                    if(('A'<=cc)&&(cc<='Z')||('a'<=cc)&&(cc<='z')){
+                    if((('A'<=cc)&&(cc<='Z'))||(('a'<=cc)&&(cc<='z'))){
                 
                         if(Atbash[AtLen-t-1]!=cc){
                             flag=0;
@@ -365,7 +361,6 @@ int main(){
     char b;
 
    //  find all the substrings.
-   int k=0;
    while((h<TextLen)&&(l<TextLen)){
     //    printf("l= %d \n h= %d ",l ,h);
        AnTmpValue=0;
@@ -410,7 +405,6 @@ int main(){
             //         printf("now is really \n l= %d \n h= %d ",l ,h);
             //  printf("\nthe tmp array is %s \n",AnTmp);
              int j=0;
-             int charSum=0;
              while(AnTmp[j]!='\0'){
                  tm=AnTmp[j];
                  if(tm!=' '){
