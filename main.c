@@ -25,22 +25,6 @@ int GetGematria(char str[]) {
     return TotalValue;
 }
 ///////////////////////////////////////////////////
-char* GetReverse(char * Tmp){
-    int TmpLen= strlen(Tmp);
-    char src [TmpLen] ;
-    strcpy(src,Tmp);
-    char Revrese [TmpLen];
-    int i=0;
-    while(i<TmpLen){
-        Revrese[i]=src[TmpLen-i-1];
-        i++;
-    }
-    Revrese[i]='\0';
-    printf("\n this is reverse : %s\n",Revrese);
-    char * var = &Revrese[0];
-    return var;
-}
-///////////////////////////////////////////////////
 char* GetAtbash(char Tmp []){
     int TmpLen= strlen(Tmp);
     char Ans [TmpLen];
@@ -137,30 +121,14 @@ int main(){
     Word [index-ind+1] ='\0';
     printf("%s\n" , Word);
     char* Atbash  = GetAtbash(Word);
-    char* Rev = GetReverse(Atbash);
-    int RevLen= strlen(Rev);
-    printf("%s\n" ,Atbash);
-    printf("%s\n" , Rev);
+       printf("%s\n" ,Atbash);
+     int AtLen= strlen(Atbash);  
+       int RevLen =5;
+   
 
-    char rev1[RevLen];
-    char at1[RevLen];
-    strncpy(at1,&Atbash[0],RevLen);
-    strncpy(rev1,&Rev[0],RevLen);
-      for(int i=0;i<RevLen;i++){
-          char ch = at1[i];
-        printf("%c\n" , ch);
-      }
-       printf("hatatazizilel\n" );
-          for(int i=0;i<RevLen;i++){
-          char ch= rev1[i];
-        printf("%c\n" , ch);
-      }
+   char rev1[RevLen];
 
-
-    printf("this is the length of rev:%d",RevLen);
     int WordValue = GetGematria(Word);
-    printf("is      %d\n" , WordValue);
-
     i=0;
     c='0';
     fgets(TextTemp,1024, stdin);
@@ -177,7 +145,9 @@ int main(){
     strncpy(Text,&TextTemp[0],i);
     Text [i] ='\0';
     printf("%s", Text);
-    
+
+/////// Gematria check //////
+    int checker=0;
     char Tmp [1];
     int l=0,h=0;
     int TmpValue=0;
@@ -187,7 +157,6 @@ int main(){
 
        while(h<TextLen){
         c=Text[l];
-        printf("c is c= %c",c);
         while((l<TextLen)){
            if(('a'>c)||(c>'z')){
               if (('A'>c)||(c>'Z')){
@@ -206,12 +175,10 @@ int main(){
         memcpy(Tmp,&Text[l],size);
         Tmp[size]='\0';
         printf("\n %s \n",Tmp);
-        // Tmp=GetClean(Tmp);
-        // printf("the clean is =%s" , Tmp);
         TmpValue = GetGematria(Tmp);
                     if(TmpValue==WordValue){
-              //   printf("\n the string is :%s\n",Tmp);
                  AppendChars(Ans,Tmp);
+                 checker++;
                     l++;
                     h++;
         }  else{
@@ -230,24 +197,26 @@ int main(){
         }
         }
        
-     }
-       int AnsLen=strlen (Ans);
+     } 
+    if(checker!=0){
+     int AnsLen=strlen (Ans);
        Ans[AnsLen-1]='\0';
       printf("Ans is:%s ",Ans);
-
-///////////////////////////////////////////////////
-
+}  
+ else {printf("gematria is:");}
+////////////////Atbash check//////////////////////
+    checker=0;
     char AtTmp [1];
     l=0,h=0;
     int t=0;
     int Value=0;
-    int AtValue=GetGematria(at1); // need to check
+    int AtValue=GetGematria(Atbash); // need to check
     char AtAns[1000];
     TextLen=strlen (Text);
 
-    // printf(" is      %d\n" , TextLen);
     int flag =1;
     while((h<TextLen)||(l<TextLen)){
+        AtValue=GetGematria(Atbash); // need to check
         c=Text[l];
         while((l<TextLen)){
             if(('a'>c)||(c>'z')){
@@ -264,7 +233,7 @@ int main(){
         }
 
         int length= (h-l+1);
-        while(length<RevLen){
+     while(length<AtLen){
             if(h<TextLen){
                 h++;
             }
@@ -274,14 +243,16 @@ int main(){
         memcpy(AtTmp,&Text[l],length);
         AtTmp[length]='\0';
         Value =GetGematria(AtTmp);
+            printf("\nTmp is %s  and the value is %d\n",AtTmp ,Value);
         if(Value==AtValue){
+                        printf("\nvalues are sameeee!! is %d  and the atbash value is %d\n",Value,AtValue);
             int r=0;
             t=0;
             flag=1;
             while(r<length){
                 char cc=AtTmp[r];
                 if(('A'<=cc)&&(cc<='Z')||('a'<=cc)&&(cc<='z')){
-                    if(at1[t]!=cc){
+                    if(Atbash[t]!=cc){
                         flag=0;
                         break;
                     }
@@ -295,6 +266,8 @@ int main(){
             }
             if(flag==1){
                 AppendChars(AtAns,AtTmp);
+                checker++;
+
             }
             else {
                 flag=1;
@@ -306,7 +279,7 @@ int main(){
                     char cc=AtTmp[r];
                     if(('A'<=cc)&&(cc<='Z')||('a'<=cc)&&(cc<='z')){
                 
-                        if(rev1[t]!=cc){
+                        if(Atbash[AtLen-t-1]!=cc){
                             flag=0;
                             break;
                         }
@@ -321,7 +294,6 @@ int main(){
                 if(flag==1){
                     AppendChars(AtAns,AtTmp);
                 }
-                
             }
                      l++;
                     
@@ -344,10 +316,124 @@ int main(){
             }
         }
     }
+    if(checker!=0){
     int AtAnsLen=strlen (AtAns);
-    AtAns[AnsLen-1]='\0';
+    AtAns[AtAnsLen-1]='\0';
     printf("AtAns is:%s ",AtAns);
+ }
+  else {printf("Atbash is:");}
+
+
+//////////////////////// Anagram check //////////////////////////////
+    char AnTmp [1];
+    checker=0;
+    l=0,h=0;
+    int a;
+    int AnTmpValue=0;
+    int AnWordValue=0;
+    int WordCounter[128]={0};
+    int TmpCounter[128]={0};
+    i=0;
+        printf("Word is %d",Word[3]);
+        
+    while(Word[i]!='\0'){
+        a= Word[i];
+        printf("\n Word %d",a); 
+        WordCounter[a]= WordCounter[a]+1;
+        printf(" WCounter %d  ",WordCounter[a]);
+        i++; 
+    }
+
+    char AnAns[1000];
+    AnAns[0] = '\0';
+    TextLen=strlen (Text); // maybe remove
+    flag=0;
+
+   //  find all the substrings.
+       while((h<TextLen)||(l<TextLen)){
+           flag=0;
+             i=0;
+        // check if the i' char is in the original word.
+    while(flag==0){
+        c=Text[l];    
+       while(i<WordLen-1){
+           if(c==Text[i]){
+               flag=1;
+               break;
+           }
+           else i++;
+       } 
+       if((flag==0)||(l<TextLen)){  l++; }  // maybe remove.
+         else break;
+                      printf("print cheack1 ");
+
+    }
+    
+    if(l>=h){ 
+        h=l;
+    }
+              printf("print cheack22 ");
+
+        // int size= (h-l+1);  //size of the current substring.
+        // while(size<WordLen){ // increase the size of the substring to the size of the Word.
+        //     h++;
+        // }
+        // size= (h-l+1);
+        // memcpy(AnTmp,&Text[l],size);  //AnTmp = current substring.
+        // AnTmp[size]='\0';
+        // printf("\n %s \n",AnTmp);
+        // int j=0;
+        // int charSum=0;
+        // while(j<size){
+        //     if(AnTmp[j]!=' '){
+        //         a=AnTmp[j];
+        //     AnTmpValue=AnTmpValue+a;   
+        //     TmpCounter[a]= TmpCounter[a]+1;
+        //     }
+        //     j++;
+        // }
+        //              printf("print chea3rck ");
+
+        //             if(AnTmpValue==AnWordValue){
+        //                 flag=1;
+        //                 // check if the 2 countingSort arrays are same.
+        //              for(i=0;i<128;i++){
+        //                  if(TmpCounter[i]!=WordCounter[i]){
+        //                      flag=0;
+        //                      break;
+        //                  }
+        //              }
+        //             if(flag=1){
+        //             AppendChars(AnAns,AnTmp);
+        //                 checker++;
+        //             }
+        //             l++;
+                    
+        //             }  
+        //  else{
+        //     if(AnTmpValue<AnWordValue){
+        //          h++;
+        // }   
+        // else if(AnTmpValue>AnWordValue){
+        //      if(l<h){
+        //   l++;
+        //      }
+        //      else {if(l==h){
+        //      l++;
+        //      h++;  
+        //      }
+        //      }
+        // }
+        // }
+       
+     }
+     if(checker!=0){
+       int AnAnsLen=strlen (AnAns);
+       AnAns[AnAnsLen-1]='\0';
+      printf("AnAns is:%s ",AnAns);
+     }
+printf("done");
 
     return 0;
 }
-//////////////////
+//////////////////////////////////////////////////////
