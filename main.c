@@ -50,7 +50,7 @@ char* GetAtbash(char Tmp []){
         i++;
     }
     Ans[j]='\0';
-    printf("\n this is ans: %s\n",Ans);
+  //  printf("\n this is ans: %s\n",Ans);
     char * tmp = &Ans[0];
     return tmp;
 }
@@ -68,7 +68,7 @@ char* AppendChars(char Ans [],char Tmp []){
     strncat(Ans, &c, 1);
     c='\0';
     strncat(Ans, &c, 1);
-    printf("Ans iterr %s",Ans);
+    // printf("Ans iterr %s",Ans);
     return Ans;
 }
 
@@ -120,9 +120,9 @@ int main(){
     strncpy(Word,&WordTemp[ind],index-ind+1);
     Word [index-ind+1] ='\0';
     WordLen = (index-ind+1);
-    printf("%s\n" , Word);
+    // printf("%s\n" , Word);
     char* Atbash  = GetAtbash(Word);
-       printf("%s\n" ,Atbash);
+    //    printf("%s\n" ,Atbash);
      int AtLen= strlen(Atbash);  
        int RevLen =5;
    
@@ -155,7 +155,7 @@ int main(){
    // char Text [i];
     // strncpy(Text,&TextTemp[0],i);
     // Text [i] ='\0';
-    printf("%s", Text);
+    // printf("%s", Text);
 
 /////// Gematria check //////
     int checker=0;
@@ -173,7 +173,7 @@ int main(){
               if (('A'>c)||(c>'Z')){
                 l++;
                 c=Text[l]; 
-                printf("%d",l);
+                // printf("%d",l);
             }
            else break;
          }
@@ -185,7 +185,7 @@ int main(){
         int size= (h-l+1);
         memcpy(Tmp,&Text[l],size);
         Tmp[size]='\0';
-        printf("\n %s \n",Tmp);
+        // printf("\n %s \n",Tmp);
         TmpValue = GetGematria(Tmp);
                     if(TmpValue==WordValue){
                  AppendChars(Ans,Tmp);
@@ -212,9 +212,9 @@ int main(){
     if(checker!=0){
      int AnsLen=strlen (Ans);
        Ans[AnsLen-1]='\0';
-      printf("Ans is:%s ",Ans);
+      printf("Gematria Sequences: %s\n",Ans);
 }  
- else {printf("gematria is:");}
+ else {printf("Gematria Sequences: \n");}
 ////////////////Atbash check//////////////////////
     checker=0;
     char AtTmp [1];
@@ -254,9 +254,9 @@ int main(){
         memcpy(AtTmp,&Text[l],length);
         AtTmp[length]='\0';
         Value =GetGematria(AtTmp);
-            printf("\nTmp is %s  and the value is %d\n",AtTmp ,Value);
+            // printf("\nTmp is %s  and the value is %d\n",AtTmp ,Value);
         if(Value==AtValue){
-                        printf("\nvalues are sameeee!! is %d  and the atbash value is %d\n",Value,AtValue);
+                        // printf("\nvalues are sameeee!! is %d  and the atbash value is %d\n",Value,AtValue);
             int r=0;
             t=0;
             flag=1;
@@ -330,9 +330,9 @@ int main(){
     if(checker!=0){
     int AtAnsLen=strlen (AtAns);
     AtAns[AtAnsLen-1]='\0';
-    printf("AtAns is:%s ",AtAns);
+    printf("Atbash Sequences: %s\n",AtAns);
  }
-  else {printf("Atbash is:");}
+  else {printf("Atbash Sequences: \n");}
 
 
 //////////////////////// Anagram check //////////////////////////////
@@ -345,17 +345,17 @@ int main(){
     int WordCounter[128]={0};
     int TmpCounter[128]={0};
     i=0;
-        printf("Word is %d",Word[3]);
+        // printf("Word is %d",Word[3]);
         
     while(Word[i]!='\0'){
         a= Word[i];
         AnWordValue=AnWordValue+a;
-        printf("\n Word %d",a); 
+        // printf("\n Word %d",a); 
         WordCounter[a]= WordCounter[a]+1;
-        printf(" WCounter %d  ",WordCounter[a]);
+        // printf(" WCounter %d  ",WordCounter[a]);
         i++; 
     }
-            printf("\n AnWordValue %d",AnWordValue); 
+            // printf("\n AnWordValue %d",AnWordValue); 
 
 
     char AnAns[1000];
@@ -367,7 +367,7 @@ int main(){
    //  find all the substrings.
    int k=0;
    while((h<TextLen)&&(l<TextLen)){
-       printf("l= %d \n h= %d ",l ,h);
+    //    printf("l= %d \n h= %d ",l ,h);
        AnTmpValue=0;
         flag=0;
         i=0;
@@ -378,11 +378,11 @@ int main(){
         i=0;
         while (flag!=1){
             char c= Text[l];
-            printf("\n the current char l is : %c",c);
+            // printf("\n the current char l is : %c",c);
             i=0;
             while(Word[i]!='\0'){
                 b=Word[i];
-     printf("\n and the current  word char  is : %c",c);
+    //  printf("\n and the current  word char  is : %c",c);
                 if(c==b){
                     flag=1;
                     break;
@@ -407,8 +407,8 @@ int main(){
                 }
              memcpy(AnTmp,&Text[l],size);  //AnTmp = current substring.
              AnTmp[size]='\0';
-                    printf("now is really \n l= %d \n h= %d ",l ,h);
-             printf("\nthe tmp array is %s \n",AnTmp);
+            //         printf("now is really \n l= %d \n h= %d ",l ,h);
+            //  printf("\nthe tmp array is %s \n",AnTmp);
              int j=0;
              int charSum=0;
              while(AnTmp[j]!='\0'){
@@ -419,9 +419,9 @@ int main(){
                  }
                  j++;
              }
-             printf("the values are : \n Tmp = %d , word is = %d \n",AnTmpValue,AnWordValue);
+            //  printf("the values are : \n Tmp = %d , word is = %d \n",AnTmpValue,AnWordValue);
                 if(AnTmpValue==AnWordValue){
-                                 printf("ohhh yeeeeeeeeeee");
+                                //  printf("ohhh yeeeeeeeeeee");
                     flag=1;
                     i=0;
                     while(i<128){
@@ -448,7 +448,7 @@ int main(){
                         else break;
                     }else{
                       if(AnTmpValue>AnWordValue){
-                   printf(" bigger :the values are : \n Tmp = %d , word is = %d",AnTmpValue,AnWordValue);
+                //    printf(" bigger :the values are : \n Tmp = %d , word is = %d",AnTmpValue,AnWordValue);
                       if(l<h){
                          l++;
                     }  
@@ -476,9 +476,9 @@ int main(){
      if(checker!=0){
        int AnAnsLen=strlen (AnAns);
        AnAns[AnAnsLen-1]='\0';
-      printf("AnAns is:%s ",AnAns);
+      printf("Anagram Sequences: %s\n",AnAns);
      }
-printf("done");
+     else printf("Anagram Sequences: \n");
 
     return 0;
 }
