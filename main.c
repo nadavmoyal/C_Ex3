@@ -470,9 +470,9 @@ int main(){
      if(checker!=0){
        int AnAnsLen=strlen (AnAns);
        AnAns[AnAnsLen-1]='\0';
-      printf("Anagram Sequences: %s\n",AnAns);
+      printf("Anagram Sequences: %s",AnAns);
      }
-     else printf("Anagram Sequences: \n");
+     else printf("Anagram Sequences: ");
 
     return 0;
 }
